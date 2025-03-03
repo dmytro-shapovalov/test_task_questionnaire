@@ -1,5 +1,9 @@
 function App() {
-  return <>Hello world!</>;
+  return (
+    <div className="flex justify-center">
+      <h3>Hello world!</h3>
+    </div>
+  );
 }
 
 export default App;
