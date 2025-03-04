@@ -3,14 +3,14 @@ import path from 'path';
 import { type Plugin } from 'vite';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import { questionnaireSchema } from '../components/Questionnaire/types';
+import { questionnaireConfigFileSchema } from '../components/Questionnaire/types';
 
 function zodToJsonSchemaPlugin(): Plugin {
   return {
     name: 'vite-plugin-zod-to-json-schema',
     buildEnd() {
       try {
-        const jsonSchema = zodToJsonSchema(questionnaireSchema);
+        const jsonSchema = zodToJsonSchema(questionnaireConfigFileSchema);
 
         const jsonFilePath = path.resolve(
           'src/components/Questionnaire/configs/schema',

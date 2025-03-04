@@ -36,10 +36,12 @@ const screenSchema = z.discriminatedUnion('screenType', [
   openQuestionScreenSchema,
 ]);
 
-type Screen = z.infer<typeof screenSchema>;
+const questionnaireSchema = z.array(screenSchema);
 
-const questionnaireSchema = z.object({ data: z.array(screenSchema), $schema: z.string() });
+const questionnaireConfigFileSchema = z.object({ data: questionnaireSchema, $schema: z.string() });
 
-type Questionnaire = z.infer<typeof questionnaireSchema>;
+type ScreenConfig = z.infer<typeof screenSchema>;
 
-export { type Questionnaire, questionnaireSchema, type Screen };
+type QuestionnaireConfig = z.infer<typeof questionnaireSchema>;
+
+export { type QuestionnaireConfig, questionnaireConfigFileSchema, type ScreenConfig };
