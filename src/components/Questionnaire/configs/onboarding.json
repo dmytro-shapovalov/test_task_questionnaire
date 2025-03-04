@@ -1,0 +1,53 @@
+{
+  "$schema": "schema/questionnaireSchema.json",
+  "data": [
+    {
+      "id": "gender",
+      "title": "Select your gender:",
+      "nextStepId": "relationship_status",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "Female",
+          "value": "female"
+        },
+        {
+          "text": "Male",
+          "value": "male"
+        }
+      ]
+    },
+    {
+      "id": "relationship_status",
+      "title": "So we can get to know you better, tell us about your relationship status.",
+      "nextStepId": "{relationship_status[=single:single_parent_status]}{relationship_status[=relationship:relationship_parent_status]}",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "Single",
+          "value": "single"
+        },
+        {
+          "text": "In a relationship",
+          "value": "relationship"
+        }
+      ]
+    },
+    {
+      "id": "single_parent_status",
+      "title": "Are you a single {gender} parent?",
+      "nextStepId": "",
+      "background": "default",
+      "screenType": "yesNoQuestion"
+    },
+    {
+      "id": "relationship_parent_status",
+      "title": "Are you a {relationship_status} parent?",
+      "nextStepId": "",
+      "background": "default",
+      "screenType": "yesNoQuestion"
+    }
+  ]
+}
