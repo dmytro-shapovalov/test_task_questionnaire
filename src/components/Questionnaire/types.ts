@@ -1,16 +1,20 @@
 import { z } from 'zod';
 
-const conditionalReturn = /^.*\{(\w+\[[=><]\w+:\w+\]\})+.*$/gi;
-const notConditionalReturn = /^[^{}[\]]*$/gi;
+const interpolatedRegex = /^.*(\{\w+\})+.*$/gi;
+const interpolatedRegexWithMatch = /^.*(\{\w+\[[=><]\w+:\w+\]\})+.*$/gi;
+const nonInterpolatedRegex = /^[^{}[\]]*$/gi;
+
+const _maybeInterpolated = z.union([
+  z.string().regex(interpolatedRegex),
+  z.string().regex(interpolatedRegexWithMatch),
+  z.string().regex(nonInterpolatedRegex),
+]);
 
 const _commonScreenSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  instruction: z.string().optional(),
-  nextStepId: z.union([
-    z.string().regex(notConditionalReturn),
-    z.string().regex(conditionalReturn),
-  ]),
+  id: z.string().regex(nonInterpolatedRegex),
+  title: _maybeInterpolated,
+  instruction: _maybeInterpolated.optional(),
+  nextStepId: _maybeInterpolated,
   background: z.union([z.literal('default'), z.literal('accent')]),
 });
 const birthDateScreenSchema = _commonScreenSchema.extend({

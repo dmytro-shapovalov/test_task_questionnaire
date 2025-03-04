@@ -9,25 +9,30 @@
             "type": "object",
             "properties": {
               "id": {
-                "type": "string"
+                "type": "string",
+                "pattern": "^[^{}[\\]]*$"
               },
               "title": {
-                "type": "string"
-              },
-              "instruction": {
-                "type": "string"
-              },
-              "nextStepId": {
                 "anyOf": [
                   {
                     "type": "string",
-                    "pattern": "^[^{}[\\]]*$"
+                    "pattern": "^.*(\\{\\w+\\})+.*$"
                   },
                   {
                     "type": "string",
-                    "pattern": "^.*\\{(\\w+\\[[=><]\\w+:\\w+\\]\\})+.*$"
+                    "pattern": "^.*(\\{\\w+\\[[=><]\\w+:\\w+\\]\\})+.*$"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^[^{}[\\]]*$"
                   }
                 ]
+              },
+              "instruction": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/title"
+              },
+              "nextStepId": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/title"
               },
               "background": {
                 "type": "string",
@@ -63,7 +68,7 @@
                 "$ref": "#/properties/data/items/anyOf/0/properties/instruction"
               },
               "nextStepId": {
-                "$ref": "#/properties/data/items/anyOf/0/properties/nextStepId"
+                "$ref": "#/properties/data/items/anyOf/0/properties/title"
               },
               "background": {
                 "$ref": "#/properties/data/items/anyOf/0/properties/background"
@@ -95,7 +100,7 @@
                 "$ref": "#/properties/data/items/anyOf/0/properties/instruction"
               },
               "nextStepId": {
-                "$ref": "#/properties/data/items/anyOf/0/properties/nextStepId"
+                "$ref": "#/properties/data/items/anyOf/0/properties/title"
               },
               "background": {
                 "$ref": "#/properties/data/items/anyOf/0/properties/background"
