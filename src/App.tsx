@@ -1,7 +1,9 @@
+import { Questionnaire } from './components/Questionnaire/Questionnaire';
+
 function App() {
   return (
     <div className="flex justify-center">
-      <h3>Hello world!</h3>
+      <Questionnaire />
     </div>
   );
 }

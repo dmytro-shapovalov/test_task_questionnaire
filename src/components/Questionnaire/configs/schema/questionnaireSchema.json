@@ -1,0 +1,150 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "instruction": {
+                "type": "string"
+              },
+              "nextStepId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[^{}[\\]]*$"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^.*\\{(\\w+\\[[=><]\\w+:\\w+\\]\\})+.*$"
+                  }
+                ]
+              },
+              "background": {
+                "type": "string",
+                "enum": [
+                  "default",
+                  "accent"
+                ]
+              },
+              "screenType": {
+                "type": "string",
+                "const": "birthDate"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "nextStepId",
+              "background",
+              "screenType"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/id"
+              },
+              "title": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/title"
+              },
+              "instruction": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/instruction"
+              },
+              "nextStepId": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/nextStepId"
+              },
+              "background": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/background"
+              },
+              "screenType": {
+                "type": "string",
+                "const": "yesNoQuestion"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "nextStepId",
+              "background",
+              "screenType"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/id"
+              },
+              "title": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/title"
+              },
+              "instruction": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/instruction"
+              },
+              "nextStepId": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/nextStepId"
+              },
+              "background": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/background"
+              },
+              "screenType": {
+                "type": "string",
+                "const": "openQuestion"
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "nextStepId",
+              "background",
+              "screenType",
+              "options"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "data",
+    "$schema"
+  ],
+  "additionalProperties": false,
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
