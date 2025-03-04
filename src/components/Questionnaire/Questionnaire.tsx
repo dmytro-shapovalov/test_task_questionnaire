@@ -1,9 +1,11 @@
-import { questionnaireSchema } from './types';
+import { QuestionnaireConfig } from './types';
 
-console.log(questionnaireSchema);
+interface Props {
+  config: QuestionnaireConfig;
+}
 
-function Questionnaire() {
-  return '';
+function Questionnaire({ config }: Props) {
+  return <pre className="text-wrap">{JSON.stringify(config, undefined, 2)}</pre>;
 }
 
 export { Questionnaire };
