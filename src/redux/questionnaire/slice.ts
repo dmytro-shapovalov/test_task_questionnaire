@@ -31,6 +31,9 @@ const selectors = {
       } satisfies ScreenConfig;
     }
   },
+  isFirst: (state: QuestionnaireSlice) => {
+    return state.history.length <= 1;
+  },
   answers: (state: QuestionnaireSlice) => {
     return state.answers;
   },
@@ -58,9 +61,15 @@ export const questionnaireSlice = createSlice({
         // You can send empty payload to go to next screen but not to save the answer.
         state.answers = { ...state.answers, [id]: action.payload };
       }
-      state.history = [...state.history, interpolate(nextStepId, state.answers)];
+      if (nextStepId) {
+        state.history = [...state.history, interpolate(nextStepId, state.answers)];
+      } else {
+        state.history = [...state.history, ''];
+      }
     },
-    previousScreen: (state) => {},
+    previousScreen: (state) => {
+      state.history = state.history.filter((_, idx, arr) => idx !== arr.length - 1);
+    },
   },
 });
 
