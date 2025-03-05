@@ -1,7 +1,7 @@
 import { questionnaireReducer } from './questionnaire/slice';
 
 const rootReducer = {
-  questionnaireReducer,
+  questionnaire: questionnaireReducer,
 };
 
 export default rootReducer;

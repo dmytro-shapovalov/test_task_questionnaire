@@ -1,11 +1,22 @@
-import { QuestionnaireConfig } from './types';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { questionnaireActions, questionnaireSelectors } from '../../redux/questionnaire/slice';
 
-interface Props {
-  config: QuestionnaireConfig;
-}
+import { QuestionnaireScreen } from './components/QuestionnaireScreen';
 
-function Questionnaire({ config }: Props) {
-  return <pre className="text-wrap">{JSON.stringify(config, undefined, 2)}</pre>;
+function Questionnaire() {
+  const config = useAppSelector(questionnaireSelectors.current);
+
+  const dispatch = useAppDispatch();
+
+  function handleAnswer(answer: string) {
+    dispatch(questionnaireActions.nextScreen(answer));
+  }
+
+  if (!config) {
+    return 'Loading...';
+  }
+
+  return <QuestionnaireScreen config={config} onAnswer={handleAnswer} />;
 }
 
 export { Questionnaire };
