@@ -3,7 +3,9 @@ import path from 'path';
 import { type Plugin } from 'vite';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
-import { questionnaireConfigFileSchema } from '../components/Questionnaire/types';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore This file is related to main project, but is used also for vite plugin.
+import { questionnaireConfigFileSchema } from '../src/components/Questionnaire/types';
 
 function zodToJsonSchemaPlugin(): Plugin {
   return {
