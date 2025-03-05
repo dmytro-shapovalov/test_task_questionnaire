@@ -37,17 +37,289 @@
     },
     {
       "id": "single_parent_status",
-      "title": "Are you a single {gender} parent?",
-      "nextStepId": "",
+      "title": "Are you a single parent?",
+      "nextStepId": "single_happiness_level",
       "background": "default",
       "screenType": "yesNoQuestion"
     },
     {
-      "id": "relationship_parent_status",
-      "title": "Are you a {relationship_status} parent?",
-      "nextStepId": "",
+      "id": "single_happiness_level",
+      "title": "{gender}{single_parent_status[=yes: who has children]} need a slightly different approach to find their perfect partner. But first, how did you feel in your last relationship?",
+      "nextStepId": "overthinker_status",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "I was unhappy with low things were going in my relationship",
+          "value": "unhappy"
+        },
+        {
+          "text": "I was unhappy with parts of my relationship, but some thing were working",
+          "value": "partly_unhappy"
+        },
+        {
+          "text": "I was generally happy with my relationship",
+          "value": "happy"
+        },
+        {
+          "text": "I’ve never been in a relationship",
+          "value": "not_been_in_relationship"
+        }
+      ]
+    },
+    {
+      "id": "overthinker_status",
+      "title": "Do you tend to overthink?",
+      "nextStepId": "we_re_going_to_change_your_relationship",
       "background": "default",
       "screenType": "yesNoQuestion"
+    },
+    {
+      "id": "we_re_going_to_change_your_relationship",
+      "title": "So how does it work?",
+      "instruction": "We analyze hundreds of data points to create your unique astrological blueprint. This is combined with AI to tailor-make your astrological insights, based on your answers. We’re going to change your relationship with astrology.",
+      "nextStepId": "{overthinker_status[=yes:what_is_most_important]}{overthinker_status[=no:emotional_control]}",
+      "background": "accent",
+      "screenType": "information"
+    },
+    {
+      "id": "what_is_most_important",
+      "title": "What is most important to you?",
+      "nextStepId": "where_did_you_hear",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "Success",
+          "value": "success"
+        },
+        {
+          "text": "Romance",
+          "value": "romance"
+        },
+        {
+          "text": "Stability",
+          "value": "stability"
+        },
+        {
+          "text": "Freedom",
+          "value": "freedom"
+        }
+      ]
+    },
+    {
+      "id": "emotional_control_status",
+      "title": "Is emotional control tricky for you?",
+      "nextStepId": "where_did_you_hear",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "Yes",
+          "value": "yes"
+        },
+        {
+          "text": "Sometimes",
+          "value": "sometimes"
+        },
+        {
+          "text": "Rarely",
+          "value": "rarely"
+        },
+        {
+          "text": "Not at all",
+          "value": "no"
+        }
+      ]
+    },
+    {
+      "id": "relationship_parent_status",
+      "title": "Are you a parent?",
+      "nextStepId": "relationship_happiness_level",
+      "background": "default",
+      "screenType": "yesNoQuestion"
+    },
+    {
+      "id": "relationship_happiness_level",
+      "title": "Single {gender}{relationship_parent_status[=yes: who has children]} need a slightly different approach to improve their relationship. Which statement best describes you?",
+      "nextStepId": "partner_intro_extro",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "I’m very unhappy with how things are going in my relationship",
+          "value": "very_unhappy"
+        },
+        {
+          "text": "I’m unhappy with parts of my relationship, but some things are working well",
+          "value": "partly_unhappy"
+        },
+        {
+          "text": "I’m generally happy in my relationship",
+          "value": "happy"
+        }
+      ]
+    },
+    {
+      "id": "partner_intro_extro",
+      "title": "Is your partner an introvert or extrovert?",
+      "nextStepId": "partner_gender",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "Introvert",
+          "value": "introvert"
+        },
+        {
+          "text": "Extrovert",
+          "value": "extrovert"
+        },
+        {
+          "text": "A bit of both",
+          "value": "both"
+        }
+      ]
+    },
+    {
+      "id": "partner_gender",
+      "title": "What is your partner’s gender?",
+      "nextStepId": "sex_priority",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "Male",
+          "value": "male"
+        },
+        {
+          "text": "Female",
+          "value": "female"
+        }
+      ]
+    },
+    {
+      "id": "sex_priority",
+      "title": "Do you agree with the statement below?",
+      "nextStepId": "“My partner and I make sex a priority in our relationship”",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "Strongly agree",
+          "value": "strongly_agree"
+        },
+        {
+          "text": "Agree",
+          "value": "agree"
+        },
+        {
+          "text": "Neutral",
+          "value": "neutral"
+        },
+        {
+          "text": "Disagree",
+          "value": "disagree"
+        },
+        {
+          "text": "Strongly disagree",
+          "value": "strongly_disagree"
+        }
+      ]
+    },
+    {
+      "id": "relationship_goals",
+      "title": "When you think about your relationship goals, you feel...?",
+      "nextStepId": "where_did_you_hear",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "Optimistic! They are totally doable, with some guidance.",
+          "value": "optimistic"
+        },
+        {
+          "text": "Cautious. I’ve struggled before, but I’m hopeful.",
+          "value": "cautious"
+        },
+        {
+          "text": "I’m feeling a little anxious, honestly.",
+          "value": "anxious"
+        }
+      ]
+    },
+    {
+      "id": "where_did_you_hear",
+      "title": "Where did you hear about us?",
+      "nextStepId": "",
+      "background": "default",
+      "screenType": "openQuestion",
+      "options": [
+        {
+          "text": "Poster or Billboard",
+          "value": "poster_billboard"
+        },
+        {
+          "text": "Friend or Family",
+          "value": "friend"
+        },
+        {
+          "text": "Instagram",
+          "value": "instagram"
+        },
+        {
+          "text": "Direct Mail or Package Insert",
+          "value": "direct_mail"
+        },
+        {
+          "text": "Online TV or Streaming TV",
+          "value": "online_tv"
+        },
+        {
+          "text": "TV",
+          "value": "tv"
+        },
+        {
+          "text": "Radio",
+          "value": "radio"
+        },
+        {
+          "text": "Search Engine (Google, Bing, etc.)",
+          "value": "search_engine"
+        },
+        {
+          "text": "Newspaper or Magazine",
+          "value": "newspaper"
+        },
+        {
+          "text": "Facebook",
+          "value": "facebook"
+        },
+        {
+          "text": "Blog Post or Website Review",
+          "value": "blog"
+        },
+        {
+          "text": "Podcast",
+          "value": "podcast"
+        },
+        {
+          "text": "Influencer",
+          "value": "influencer"
+        },
+        {
+          "text": "Youtube",
+          "value": "youtube"
+        },
+        {
+          "text": "Pinterest",
+          "value": "pinterest"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
     }
   ]
 }

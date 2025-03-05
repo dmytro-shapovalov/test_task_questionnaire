@@ -31,6 +31,9 @@ const selectors = {
       } satisfies ScreenConfig;
     }
   },
+  answers: (state: QuestionnaireSlice) => {
+    return state.answers;
+  },
 };
 
 export const questionnaireSlice = createSlice({

@@ -17,6 +17,8 @@ function interpolate(str: string, map: Record<string, string>) {
 
       const { field, operation, match_value, return_value } = groups;
 
+      console.log(match);
+
       switch (operation) {
         case '=': {
           const value = map[field];

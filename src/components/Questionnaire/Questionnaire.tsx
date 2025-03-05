@@ -5,6 +5,7 @@ import { QuestionnaireScreen } from './components/QuestionnaireScreen';
 
 function Questionnaire() {
   const config = useAppSelector(questionnaireSelectors.current);
+  const answers = useAppSelector(questionnaireSelectors.answers);
 
   const dispatch = useAppDispatch();
 
@@ -13,7 +14,7 @@ function Questionnaire() {
   }
 
   if (!config) {
-    return 'Loading...';
+    return <pre>{JSON.stringify(answers, undefined, 2)}</pre>;
   }
 
   return <QuestionnaireScreen config={config} onAnswer={handleAnswer} />;
