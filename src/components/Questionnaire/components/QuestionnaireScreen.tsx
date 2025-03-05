@@ -19,7 +19,7 @@ function QuestionnaireScreen({ config, onAnswer }: Props) {
   }
 
   return (
-    <div>
+    <div className="h-full w-full overflow-hidden bg-default-surface-1">
       <button hidden={isFirst} onClick={handleBack} className="bg-red-300">
         Back
       </button>

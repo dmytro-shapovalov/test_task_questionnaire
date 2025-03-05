@@ -1,1 +1,12 @@
 @import 'tailwindcss';
+
+@theme {
+  --color-default-surface-1: #fff0f0;
+}
+
+html,
+body,
+#root {
+  height: 100dvh;
+  font-family: 'Open Sans', sans-serif;
+}

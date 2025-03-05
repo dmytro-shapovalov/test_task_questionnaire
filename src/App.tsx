@@ -16,7 +16,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center h-full">
       <Questionnaire />
     </div>
   );
