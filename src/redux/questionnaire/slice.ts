@@ -26,8 +26,8 @@ const selectors = {
       const { title, instruction } = currentScreen;
       return {
         ...currentScreen,
-        title: interpolate(title, state.answers),
-        instruction: instruction && interpolate(instruction, state.answers),
+        title: interpolate(title, state),
+        instruction: instruction && interpolate(instruction, state),
       } satisfies ScreenConfig;
     }
   },
@@ -62,7 +62,7 @@ export const questionnaireSlice = createSlice({
         state.answers = { ...state.answers, [id]: action.payload };
       }
       if (nextStepId) {
-        state.history = [...state.history, interpolate(nextStepId, state.answers)];
+        state.history = [...state.history, interpolate(nextStepId, state)];
       } else {
         state.history = [...state.history, ''];
       }
