@@ -14,7 +14,7 @@
               },
               "title": {
                 "type": "string",
-                "pattern": "^((\\{\\w+\\[[=><]\\w+:[\\w ]+\\]\\})+|(\\{\\w+\\})+|([^{}[\\]])+)+$"
+                "pattern": "^((\\{\\w+\\[[=><]\\w+:[\\w ]+\\]\\})|(\\{\\w+\\})|([^{}[\\]]))+$"
               },
               "instruction": {
                 "$ref": "#/properties/data/items/anyOf/0/properties/title"

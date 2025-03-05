@@ -18,7 +18,7 @@ function removeNamedCapturingGroups(str: string) {
 const onlyInterpolation = RegExp(`${_interpolationPart}+`, 'g');
 const mixed = RegExp(
   removeNamedCapturingGroups(
-    `^((${_interpolationWithMatchPart})+|(${_interpolationPart})+|(${_nonInterpolatedPart})+)+$`,
+    `^((${_interpolationWithMatchPart})|(${_interpolationPart})|(${_nonInterpolatedPart}))+$`,
   ),
   'g',
 );
