@@ -1,6 +1,7 @@
 import { assertExhausted } from '../../../../lib/typeHelpers';
 import { ScreenConfig } from '../../types';
 
+import { InformationalNext } from './components/InformationalNext';
 import { OpenQuestionAnswers } from './components/OpenQuestionAnswers';
 import { YesNoAnswers } from './components/YesNoAnswers';
 
@@ -13,6 +14,9 @@ function Answers({ config, onAnswer }: Props) {
   const { screenType } = config;
 
   switch (screenType) {
+    case 'information': {
+      return <InformationalNext onAnswer={onAnswer} />;
+    }
     case 'yesNoQuestion': {
       return <YesNoAnswers onAnswer={onAnswer} />;
     }

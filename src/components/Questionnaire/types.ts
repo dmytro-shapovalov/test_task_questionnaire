@@ -42,6 +42,11 @@ const _commonScreenSchema = z.object({
   nextStepId: _maybeInterpolatedStringSchema,
   background: z.union([z.literal('default'), z.literal('accent')]),
 });
+
+const informationScreenSchema = _commonScreenSchema.extend({
+  screenType: z.literal('information'),
+});
+
 const birthDateScreenSchema = _commonScreenSchema.extend({
   screenType: z.literal('birthDate'),
 });
@@ -56,6 +61,7 @@ const openQuestionScreenSchema = _commonScreenSchema.extend({
 });
 
 const screenSchema = z.discriminatedUnion('screenType', [
+  informationScreenSchema,
   birthDateScreenSchema,
   yesNoQuestionScreenSchema,
   openQuestionScreenSchema,

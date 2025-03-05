@@ -43,6 +43,38 @@
               },
               "screenType": {
                 "type": "string",
+                "const": "information"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "nextStepId",
+              "background",
+              "screenType"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/id"
+              },
+              "title": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/title"
+              },
+              "instruction": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/instruction"
+              },
+              "nextStepId": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/title"
+              },
+              "background": {
+                "$ref": "#/properties/data/items/anyOf/0/properties/background"
+              },
+              "screenType": {
+                "type": "string",
                 "const": "birthDate"
               }
             },

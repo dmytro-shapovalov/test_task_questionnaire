@@ -51,7 +51,10 @@ export const questionnaireSlice = createSlice({
 
       const { id, nextStepId } = current;
 
-      state.answers = { ...state.answers, [id]: action.payload };
+      if (action.payload) {
+        // You can send empty payload to go to next screen but not to save the answer.
+        state.answers = { ...state.answers, [id]: action.payload };
+      }
       state.history = [...state.history, interpolate(nextStepId, state.answers)];
     },
     previousScreen: (state) => {},
