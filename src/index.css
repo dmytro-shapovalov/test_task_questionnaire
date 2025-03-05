@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 
 @theme {
+  --color-font-main: #201f1f;
+  --color-font-inverted: #fbfbff;
   --color-surface-1: #fff0f0;
   --color-surface-2: #eaeef7;
   --color-border-1: #e0e0e0;
