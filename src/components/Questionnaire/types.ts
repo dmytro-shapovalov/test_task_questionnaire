@@ -1,20 +1,45 @@
 import { z } from 'zod';
 
-const interpolatedRegex = /^.*(\{\w+\})+.*$/gi;
-const interpolatedRegexWithMatch = /^.*(\{\w+\[[=><]\w+:\w+\]\})+.*$/gi;
-const nonInterpolatedRegex = /^[^{}[\]]*$/gi;
+// TODO reuse parts of regExps
+// TODO move capturing group names to constants and reuse in string matching
+const interpolated = /^.*(?:\{\w+\})+.*$/gi; // Interpolation is {personal_attitude}!
+const onlyInterpolation = /\{(?<field>\w+)\}/gi; // {personal_attitude}
+const interpolatedWithMatch = /^.*(?:\{\w+\[[=><]\w+:\w+\]\})+.*$/gi; // Interpolation is {personal_attitude[=2:cool]}!
+const onlyInterpolationWithMatch =
+  /\{(?<field>\w+)\[(?<operation>[=><])(?<match_value>\w+):(?<return_value>\w+)\]\}/gi; // {personal_attitude[=2:cool]}
+const nonInterpolated = /^[^{}[\]]*$/gi; // Interpolation is cool.
 
-const _maybeInterpolated = z.union([
-  z.string().regex(interpolatedRegex),
-  z.string().regex(interpolatedRegexWithMatch),
-  z.string().regex(nonInterpolatedRegex),
+function isInterpolationGroups(val: unknown): val is { field: string } {
+  return !!val && typeof val === 'object' && 'field' in val;
+}
+
+function isInterpolationWithMatchGroups(val: unknown): val is {
+  field: string;
+  operation: '=' | '<' | '>';
+  match_value: string;
+  return_value: string;
+} {
+  return (
+    !!val &&
+    typeof val === 'object' &&
+    'field' in val &&
+    'operation' in val &&
+    'match_value' in val &&
+    'return_value' in val
+  );
+}
+
+const _maybeInterpolatedStringSchema = z.union([
+  z.string().regex(interpolated),
+  z.string().regex(interpolatedWithMatch),
+  z.string().regex(nonInterpolated),
 ]);
 
 const _commonScreenSchema = z.object({
-  id: z.string().regex(nonInterpolatedRegex),
-  title: _maybeInterpolated,
-  instruction: _maybeInterpolated.optional(),
-  nextStepId: _maybeInterpolated,
+  id: z.string().regex(nonInterpolated),
+  title: _maybeInterpolatedStringSchema,
+  instruction: _maybeInterpolatedStringSchema.optional(),
+  nextStepId: _maybeInterpolatedStringSchema,
   background: z.union([z.literal('default'), z.literal('accent')]),
 });
 const birthDateScreenSchema = _commonScreenSchema.extend({
@@ -44,4 +69,12 @@ type ScreenConfig = z.infer<typeof screenSchema>;
 
 type QuestionnaireConfig = z.infer<typeof questionnaireSchema>;
 
-export { type QuestionnaireConfig, questionnaireConfigFileSchema, type ScreenConfig };
+export {
+  isInterpolationGroups,
+  isInterpolationWithMatchGroups,
+  onlyInterpolation,
+  onlyInterpolationWithMatch,
+  type QuestionnaireConfig,
+  questionnaireConfigFileSchema,
+  type ScreenConfig,
+};

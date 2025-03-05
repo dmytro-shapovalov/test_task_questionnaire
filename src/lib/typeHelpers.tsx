@@ -6,4 +6,8 @@ function assertNotNull<T>(val: T | null | undefined): asserts val is T {
   }
 }
 
-export { assertNotNull };
+function assertExhausted(val: never) {
+  throw new Error(`Got unexpected value: ${String(val)}.`);
+}
+
+export { assertExhausted, assertNotNull };
