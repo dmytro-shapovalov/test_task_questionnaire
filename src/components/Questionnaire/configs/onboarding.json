@@ -78,7 +78,7 @@
       "id": "we_re_going_to_change_your_relationship",
       "title": "So how does it work?",
       "instruction": "We analyze hundreds of data points to create your unique astrological blueprint. This is combined with AI to tailor-make your astrological insights, based on your answers. We’re going to change your relationship with astrology.",
-      "nextStepId": "{overthinker_status[=yes:what_is_most_important]}{overthinker_status[=no:emotional_control]}",
+      "nextStepId": "{overthinker_status[=yes:what_is_most_important]}{overthinker_status[=no:emotional_control_status]}",
       "background": "accent",
       "screenType": "information"
     },

@@ -15,11 +15,7 @@ function App() {
     dispatch(questionnaireActions.setScreensConfig(data));
   }, [dispatch]);
 
-  return (
-    <div className="flex justify-center h-full">
-      <Questionnaire />
-    </div>
-  );
+  return <Questionnaire />;
 }
 
 export default App;
