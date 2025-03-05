@@ -1,9 +1,9 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, lruMemoize, type PayloadAction } from '@reduxjs/toolkit';
 
 import { QuestionnaireConfig, ScreenConfig } from '../../components/Questionnaire/types';
 import { assertNotNull } from '../../lib/typeHelpers';
 
-import { interpolate } from './helpers';
+import { findAnswer, interpolate } from './helpers';
 
 export interface QuestionnaireSlice {
   screens: QuestionnaireConfig;
@@ -34,9 +34,13 @@ const selectors = {
   isFirst: (state: QuestionnaireSlice) => {
     return state.history.length <= 1;
   },
-  answers: (state: QuestionnaireSlice) => {
-    return state.answers;
-  },
+  answers: lruMemoize((state: QuestionnaireSlice) =>
+    Object.entries(state.answers).map(([key, value]) => {
+      const { answer, screen } = findAnswer(key, value, state.screens);
+
+      return { question: interpolate(screen.title, state), answer: answer.text };
+    }),
+  ),
 };
 
 export const questionnaireSlice = createSlice({

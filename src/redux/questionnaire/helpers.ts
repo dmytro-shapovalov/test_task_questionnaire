@@ -9,12 +9,14 @@ import { assertExhausted, assertNotNull } from '../../lib/typeHelpers';
 
 import { QuestionnaireSlice } from './slice';
 
-function findAnswerText(id: string, answerValue: string, screens: QuestionnaireConfig) {
+function findAnswer(id: string, answerValue: string, screens: QuestionnaireConfig) {
   const screen = screens.find((x) => x.id === id);
 
   assertNotNull(screen);
 
   const { screenType } = screen;
+
+  let answerText;
 
   switch (screenType) {
     case 'information':
@@ -23,18 +25,22 @@ function findAnswerText(id: string, answerValue: string, screens: QuestionnaireC
     }
 
     case 'yesNoQuestion': {
-      return { yes: 'Yes', no: 'No' }[answerValue];
+      answerText = { yes: 'Yes', no: 'No' }[answerValue];
+      break;
     }
 
     case 'openQuestion': {
       const option = screen.options.find((x) => x.value === answerValue);
       assertNotNull(option);
-      return option.text;
+      answerText = option.text;
+      break;
     }
 
     default:
       assertExhausted(screenType);
   }
+
+  return { screen, answer: { text: answerText, value: answerValue } };
 }
 
 function interpolate(str: string, state: QuestionnaireSlice) {
@@ -80,14 +86,16 @@ function interpolate(str: string, state: QuestionnaireSlice) {
 
       const { field } = groups;
 
-      const replacement = findAnswerText(field, answers[field], state.screens);
+      const {
+        answer: { text },
+      } = findAnswer(field, answers[field], screens);
 
-      if (!replacement) {
+      if (!text) {
         throw new Error(`No value found for interpolation ${match}.`);
       }
 
-      return replacement;
+      return text;
     });
 }
 
-export { interpolate };
+export { findAnswer, interpolate };

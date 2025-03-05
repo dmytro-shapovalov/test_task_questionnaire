@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { questionnaireActions, questionnaireSelectors } from '../../redux/questionnaire/slice';
 
 import { QuestionnaireScreen } from './components/QuestionnaireScreen';
+import { Results } from './components/Results';
 
 function Questionnaire() {
   const config = useAppSelector(questionnaireSelectors.current);
@@ -14,7 +15,7 @@ function Questionnaire() {
   }
 
   if (!config) {
-    return <pre>{JSON.stringify(answers, undefined, 2)}</pre>;
+    return <Results answers={answers} />;
   }
 
   return <QuestionnaireScreen config={config} onAnswer={handleAnswer} />;
