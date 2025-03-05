@@ -4,7 +4,7 @@ interface Props {
 
 function Results({ answers }: Props) {
   return (
-    <ol className="w-full flex flex-col items-center">
+    <ol className="w-full flex flex-col sm:items-center text-pretty">
       {answers.map(({ answer, question }) => (
         <li key={question} className="flex flex-col sm:w-80 mb-4">
           <div>
