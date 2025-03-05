@@ -7,7 +7,7 @@ npm install
 ### Run dev server
 
 ```sh
-npm run dev
+npm start
 ```
 
 ### Build application
