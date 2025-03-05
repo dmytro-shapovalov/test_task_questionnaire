@@ -13,24 +13,8 @@
                 "pattern": "^[^{}[\\]]*$"
               },
               "title": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "pattern": "^[^{}[\\]]*(?:\\{\\w+\\})+[^{}[\\]]*(?:\\{\\w+\\[[=><]\\w+:[\\w ]+\\]\\})+[^{}[\\]]*$"
-                  },
-                  {
-                    "type": "string",
-                    "pattern": "^[^{}[\\]]*(?:\\{\\w+\\})+[^{}[\\]]*$"
-                  },
-                  {
-                    "type": "string",
-                    "pattern": "^[^{}[\\]]*(?:\\{\\w+\\[[=><]\\w+:[\\w ]+\\]\\})+[^{}[\\]]*$"
-                  },
-                  {
-                    "type": "string",
-                    "pattern": "^[^{}[\\]]*$"
-                  }
-                ]
+                "type": "string",
+                "pattern": "^((\\{\\w+\\[[=><]\\w+:[\\w ]+\\]\\})+|(\\{\\w+\\})+|([^{}[\\]])+)+$"
               },
               "instruction": {
                 "$ref": "#/properties/data/items/anyOf/0/properties/title"
@@ -53,7 +37,6 @@
             "required": [
               "id",
               "title",
-              "nextStepId",
               "background",
               "screenType"
             ],
@@ -72,7 +55,7 @@
                 "$ref": "#/properties/data/items/anyOf/0/properties/instruction"
               },
               "nextStepId": {
-                "$ref": "#/properties/data/items/anyOf/0/properties/title"
+                "$ref": "#/properties/data/items/anyOf/0/properties/nextStepId"
               },
               "background": {
                 "$ref": "#/properties/data/items/anyOf/0/properties/background"
@@ -85,7 +68,6 @@
             "required": [
               "id",
               "title",
-              "nextStepId",
               "background",
               "screenType"
             ],
@@ -104,7 +86,7 @@
                 "$ref": "#/properties/data/items/anyOf/0/properties/instruction"
               },
               "nextStepId": {
-                "$ref": "#/properties/data/items/anyOf/0/properties/title"
+                "$ref": "#/properties/data/items/anyOf/0/properties/nextStepId"
               },
               "background": {
                 "$ref": "#/properties/data/items/anyOf/0/properties/background"
@@ -117,7 +99,6 @@
             "required": [
               "id",
               "title",
-              "nextStepId",
               "background",
               "screenType"
             ],
@@ -136,7 +117,7 @@
                 "$ref": "#/properties/data/items/anyOf/0/properties/instruction"
               },
               "nextStepId": {
-                "$ref": "#/properties/data/items/anyOf/0/properties/title"
+                "$ref": "#/properties/data/items/anyOf/0/properties/nextStepId"
               },
               "background": {
                 "$ref": "#/properties/data/items/anyOf/0/properties/background"
@@ -168,7 +149,6 @@
             "required": [
               "id",
               "title",
-              "nextStepId",
               "background",
               "screenType",
               "options"

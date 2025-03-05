@@ -251,7 +251,6 @@
     {
       "id": "where_did_you_hear",
       "title": "Where did you hear about us?",
-      "nextStepId": "",
       "background": "default",
       "screenType": "openQuestion",
       "options": [

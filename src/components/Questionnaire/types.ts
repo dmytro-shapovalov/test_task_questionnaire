@@ -1,13 +1,29 @@
 import { z } from 'zod';
 
-// TODO reuse parts of regExps
 // TODO move capturing group names to constants and reuse in string matching
-const interpolated = /^.*(?:\{\w+\})+.*$/gi; // Interpolation is {personal_attitude}!
-const onlyInterpolation = /\{(?<field>\w+)\}/gi; // {personal_attitude}
-const interpolatedWithMatch = /^.*(?:\{\w+\[[=><]\w+:\w+\]\})+.*$/gi; // Interpolation is {personal_attitude[=2:cool]}!
-const onlyInterpolationWithMatch =
-  /\{(?<field>\w+)\[(?<operation>[=><])(?<match_value>\w+):(?<return_value>\w+)\]\}/gi; // {personal_attitude[=2:cool]}
-const nonInterpolated = /^[^{}[\]]*$/gi; // Interpolation is cool.
+const _nonInterpolatedPart = '[^{}[\\]]';
+const _interpolationPart = '\\{(?<field>\\w+)\\}'; // {personal_attitude}
+const _interpolationWithMatchPart =
+  '\\{(?<field>\\w+)\\[(?<operation>[=><])(?<match_value>\\w+):(?<return_value>[\\w ]+)\\]\\}'; // {personal_attitude[=cool:I'm cool with it!]}
+
+function removeNamedCapturingGroups(str: string) {
+  // Remove capturing groups from big regex to improve performance.
+  //! This might introduce breaking behavior if some of the matched capturing groups will have quantifiers for the whole group.
+  return str.replaceAll(
+    /\(\?<.*?>(?<capturing_group_content>.*?)\)/g,
+    '$<capturing_group_content>',
+  );
+}
+
+const onlyInterpolation = RegExp(`${_interpolationPart}+`, 'g');
+const mixed = RegExp(
+  removeNamedCapturingGroups(
+    `^((${_interpolationWithMatchPart})+|(${_interpolationPart})+|(${_nonInterpolatedPart})+)+$`,
+  ),
+  'g',
+);
+const onlyInterpolationWithMatch = RegExp(`${_interpolationWithMatchPart}+`, 'g');
+const nonInterpolated = RegExp(`^${_nonInterpolatedPart}*$`, 'g');
 
 function isInterpolationGroups(val: unknown): val is { field: string } {
   return !!val && typeof val === 'object' && 'field' in val;
@@ -29,17 +45,13 @@ function isInterpolationWithMatchGroups(val: unknown): val is {
   );
 }
 
-const _maybeInterpolatedStringSchema = z.union([
-  z.string().regex(interpolated),
-  z.string().regex(interpolatedWithMatch),
-  z.string().regex(nonInterpolated),
-]);
+const _maybeInterpolatedStringSchema = z.string().regex(mixed);
 
 const _commonScreenSchema = z.object({
   id: z.string().regex(nonInterpolated),
   title: _maybeInterpolatedStringSchema,
   instruction: _maybeInterpolatedStringSchema.optional(),
-  nextStepId: _maybeInterpolatedStringSchema,
+  nextStepId: _maybeInterpolatedStringSchema.optional(),
   background: z.union([z.literal('default'), z.literal('accent')]),
 });
 
